@@ -1,5 +1,5 @@
 const { loginValidate } = require('./validations/login.schema.validation');
-const loginService = require('../services/login.service');
+const { loginService } = require('../services');
 const mapError = require('./mapError');
 
 const login = async (req, res) => {
