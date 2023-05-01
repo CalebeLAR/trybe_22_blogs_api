@@ -2,6 +2,7 @@ const errorMap = {
   INVALID_VALUE: 400,
   MISSING_VALUE: 400,
   USER_NOT_FOUND: 400,
+  USER_ALREADY_REGISTERED: 409,
 };
 
 const mapErros = (type) => {
