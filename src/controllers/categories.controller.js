@@ -18,6 +18,18 @@ const createCategory = async (req, res) => {
     }
 };
 
+const getCategories = async (req, res) => {
+  try {
+    const { type, message } = await categoriesService.getCategories();
+    if (type) return res.status(mapErros(type)).json({ message });
+
+    return res.status(200).json(message);
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+};
+
 module.exports = {
   createCategory,
+  getCategories,
 };
