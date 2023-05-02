@@ -6,6 +6,7 @@ const errorMap = {
   CATEGORY_ALREADY_REGISTERED: 409,
   UNAUTHORIZED: 401,
   NONEXISTENT_USER: 404,
+  CATEGORY_NOT_FOUND: 400,
 };
 
 const mapErros = (type) => {
