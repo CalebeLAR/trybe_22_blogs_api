@@ -15,6 +15,18 @@ const createCategory = async (category) => {
   }
 };
 
+const getCategories = async () => {
+  try {
+    const categories = await Category.findAll({ order: [['id', 'ASC']] });
+    if (!categories.length) return { type: null, message: 'table categories is empty' };
+
+    return { type: null, message: categories };
+  } catch (err) {
+    return { type: 'INTERNAL_ERROR', message: err.message };
+  }
+};
+
 module.exports = {
   createCategory,
+  getCategories,
 };
