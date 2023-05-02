@@ -8,6 +8,9 @@ const userShema = joi.object({
   image: joi.string().required(),
 });
 
+const idUserShema = joi.number().min(1).integer().required();
+
 module.exports = {
   userShema,
+  idUserShema,
 };
