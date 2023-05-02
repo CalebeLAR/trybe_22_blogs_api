@@ -1,8 +1,5 @@
-const jwt = require('jsonwebtoken');
 const { User } = require('../models');
-
-const secret = process.env.JWT_SECRET || 'secretJWT';
-const algorithm = { algorithm: 'HS256', expiresIn: '7d' };
+const { generateToken } = require('../auth/authorizations');
 
 const createUser = async (user) => {
   try {
@@ -14,8 +11,7 @@ const createUser = async (user) => {
     const userCreated = await User.create(user);
 
     const { password: _, ...userWithOutPassword } = userCreated.dataValues;
-
-    const token = jwt.sign({ payload: userWithOutPassword }, secret, algorithm);
+    const token = generateToken(userWithOutPassword);
 
     return { type: null, message: token };
   } catch (err) {
