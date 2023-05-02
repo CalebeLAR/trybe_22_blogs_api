@@ -20,7 +20,7 @@ const invalidTokenErros = (err) => {
   if (message === 'jwt must be provided') {
     return { type: 'UNAUTHORIZED', message: 'Token not found' };
   }
-  // message === 'jwt expired' || message === 'invalid token'
+
   if (name === 'JsonWebTokenError') {
     return { type: 'UNAUTHORIZED', message: 'Expired or invalid token' };
   }
