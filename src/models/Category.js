@@ -22,12 +22,5 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
   });
 
-  // Category.associate = (model) => {
-  //   Category.hasMany(model.BlogPosts, {
-  //     foreignKey: 'category_id',
-  //     as: 'blogPosts'
-  //   });
-  // }
-
   return Category;
 }
