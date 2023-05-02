@@ -22,13 +22,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     },
     published: {
-      allowNull: false,
       type: DataTypes.DATE,
     },
     updated: {
-      allowNull: false,
       type: DataTypes.DATE,
-      defaultValue: DataTypes.DATE,
     },
     userId: {
       // field: 'user_id',
@@ -43,9 +40,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   },
     {
-    tableName: 'blog_posts',
-    timestamps: false,
-    underscored: true,
+      tableName: 'blog_posts',
+      underscored: true,
+      timestamps: true,
+      createdAt: 'published',
+      updatedAt: 'updated',
   });
 
   BlogPost.associate = (model) => {
