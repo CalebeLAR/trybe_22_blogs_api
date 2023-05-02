@@ -33,7 +33,23 @@ const getUsers = async () => {
   }
 };
 
+const getUser = async (id) => {
+  try {
+    const user = await User.findOne({ 
+      where: { id },
+      attributes: ['id', 'displayName', 'email', 'image'],
+    });
+
+    if (!user) return { type: 'NONEXISTENT_USER', message: 'User does not exist' };
+    
+    return { type: null, message: user.dataValues };
+  } catch (err) {
+    return { type: 'INTERNAL_ERROR', message: err.message };
+  }
+};
+
 module.exports = {
   createUser,
   getUsers,
+  getUser,
 };
