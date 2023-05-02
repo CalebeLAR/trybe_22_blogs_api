@@ -4,6 +4,7 @@ const errorMap = {
   USER_NOT_FOUND: 400,
   USER_ALREADY_REGISTERED: 409,
   UNAUTHORIZED: 401,
+  NONEXISTENT_USER: 404,
 };
 
 const mapErros = (type) => {
