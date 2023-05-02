@@ -25,7 +25,7 @@ const getUsers = async () => {
       { attributes: ['id', 'displayName', 'email', 'image'] },
     );
 
-    if (!users) return { type: null, message: 'table users is empty' };
+    if (!users.length) return { type: null, message: 'table users is empty' };
 
     return { type: null, message: users };
   } catch (err) {
