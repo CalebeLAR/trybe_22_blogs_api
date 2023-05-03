@@ -68,8 +68,33 @@ const findBlogPost = async (id) => {
   }
 };
 
+const updateBlogPost = async (newBlogPost, postId, userId) => {
+  try {
+  const isAuthorized = Number(postId) === Number(userId);
+  if (!isAuthorized) return { type: 'UNAUTHORIZED', message: 'Unauthorized user' };
+
+  const [isUpdated] = await BlogPost.update(newBlogPost, { where: { id: postId } });
+  if (!isUpdated) {
+    return { type: 'NONEXISTENT_BLOGPOST', message: 'Post does not exist' };
+  }
+
+  const updatedBlogPost = await BlogPost.findOne({
+    where: { id: postId },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: 'password' } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+
+  return { type: null, message: updatedBlogPost };
+  } catch (err) {
+    return { type: 'INTERNAL_ERROR', message: err.message };
+  }
+};
+
 module.exports = {
   createBlogPost,
   getAllBlogPost,
   findBlogPost,
+  updateBlogPost,
 };
