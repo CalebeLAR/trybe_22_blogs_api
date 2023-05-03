@@ -1,4 +1,4 @@
-const { postSchema } = require('./post.schema');
+const { postSchema, postWithOutCategorySchema } = require('./post.schema');
 
 const blogPostValidate = (blogPost) => {
   const { error } = postSchema.validate(blogPost);
@@ -11,6 +11,14 @@ const blogPostValidate = (blogPost) => {
   return { type: null, message: blogPost };
 };
 
+const postWithOutCategoryValidate = (blogPost) => {
+  const { error } = postWithOutCategorySchema.validate(blogPost);
+  if (error) return { type: 'MISSING_VALUE', message: 'Some required fields are missing' };
+
+  return { type: null, message: blogPost };
+};
+
 module.exports = {
+  postWithOutCategoryValidate,
   blogPostValidate,
 };
