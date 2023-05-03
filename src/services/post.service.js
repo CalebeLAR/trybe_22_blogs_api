@@ -48,7 +48,28 @@ const getAllBlogPost = async () => {
   }
 };
 
+const findBlogPost = async (id) => {
+  try {
+    const blogPost = await BlogPost.findOne({
+      where: { id },
+      include: [
+        { model: User, as: 'user', attributes: { exclude: 'password' } },
+        { model: Category, as: 'categories', through: { attributes: [] } },
+      ],
+    });
+    
+    if (!blogPost) {
+      return { type: 'NONEXISTENT_BLOGPOST', message: 'Post does not exist' };
+    }
+
+    return { type: false, message: blogPost };
+  } catch (err) {
+    return { type: 'INTERNAL_ERROR', message: err.message };
+  }
+};
+
 module.exports = {
   createBlogPost,
   getAllBlogPost,
+  findBlogPost,
 };

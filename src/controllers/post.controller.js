@@ -16,13 +16,30 @@ const createBlogPost = async (req, res) => {
 };
 
 const getAllBlogPost = async (req, res) => {
-  const { type, message } = await postService.getAllBlogPost();
-  if (type) return res.status(mapErros(type)).json({ message });
+  try {
+    const { type, message } = await postService.getAllBlogPost();
+    if (type) return res.status(mapErros(type)).json({ message });
 
-  return res.status(200).json(message);
+    return res.status(200).json(message);
+  } catch (err) {
+    return { type: false, message: err.messege };
+  }
+};
+
+const findBlogPost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { type, message } = await postService.findBlogPost(id);
+    if (type) return res.status(mapErros(type)).json({ message });
+
+    return res.status(200).json(message);
+  } catch (err) {
+    return { type: false, message: err.messege };
+  }
 };
 
 module.exports = {
   createBlogPost,
   getAllBlogPost,
+  findBlogPost,
 };
