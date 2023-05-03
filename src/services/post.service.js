@@ -1,4 +1,4 @@
-const { BlogPost, Category, PostCategory } = require('../models');
+const { BlogPost, Category, PostCategory, User } = require('../models');
 
 const valideCategoryIds = async (categoryIds) => {
   const categories = await Category.findAll({ attributes: ['id'] });
@@ -31,6 +31,24 @@ const createBlogPost = async (blogPost, payload) => {
   }
 };
 
+const getAllBlogPost = async () => {
+  try {
+    const blogPosts = await BlogPost.findAll({
+      include: [
+        { model: User, as: 'user', attributes: { exclude: 'password' } },
+        { model: Category, as: 'categories', through: { attributes: [] } },
+      ],
+    });
+    
+    if (!blogPosts.length) return { type: null, message: 'table blog_posts is empty' };
+    
+    return { type: false, message: blogPosts };
+  } catch (err) {
+    return { type: 'INTERNAL_ERROR', message: err.message };
+  }
+};
+
 module.exports = {
   createBlogPost,
+  getAllBlogPost,
 };
