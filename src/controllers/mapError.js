@@ -8,6 +8,7 @@ const errorMap = {
   NONEXISTENT_USER: 404,
   CATEGORY_NOT_FOUND: 400,
   NONEXISTENT_BLOGPOST: 404,
+  NO_CONTENT: 204,
 };
 
 const mapErros = (type) => {
