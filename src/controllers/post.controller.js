@@ -15,6 +15,14 @@ const createBlogPost = async (req, res) => {
   res.status(201).json(message);
 };
 
+const getAllBlogPost = async (req, res) => {
+  const { type, message } = await postService.getAllBlogPost();
+  if (type) return res.status(mapErros(type)).json({ message });
+
+  return res.status(200).json(message);
+};
+
 module.exports = {
   createBlogPost,
+  getAllBlogPost,
 };
