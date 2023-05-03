@@ -92,9 +92,29 @@ const updateBlogPost = async (newBlogPost, postId, userId) => {
   }
 };
 
+const deleteBlogPost = async (postId, userId) => {
+  try {
+    const blogPost = await BlogPost.findByPk(postId);
+    if (!blogPost) {
+      return { type: 'NONEXISTENT_BLOGPOST', message: 'Post does not exist' };
+    }
+
+    if (blogPost.userId !== userId) {
+      return { type: 'UNAUTHORIZED', message: 'Unauthorized user' };
+    }
+
+    await BlogPost.destroy({ where: { id: postId } });
+   
+    return { type: null, message: null };
+    } catch (err) {
+      return { type: 'INTERNAL_ERROR', message: err.message };
+    }
+};
+
 module.exports = {
   createBlogPost,
   getAllBlogPost,
   findBlogPost,
   updateBlogPost,
+  deleteBlogPost,
 };

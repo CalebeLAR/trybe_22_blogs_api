@@ -57,9 +57,24 @@ const updateBlogPost = async (req, res) => {
   }
 };
 
+const deleteBlogPost = async (req, res) => {
+  try {
+    const postId = req.params.id;
+    const userId = req.payload.id;
+
+    const { type, message } = await postService.deleteBlogPost(postId, userId);
+    if (type) return res.status(mapErros(type)).json({ message });
+
+    return res.status(204).json(message);
+  } catch (err) {
+    return { type: false, message: err.messege };
+  }
+};
+
 module.exports = {
   createBlogPost,
   getAllBlogPost,
   findBlogPost,
   updateBlogPost,
+  deleteBlogPost,
 };
